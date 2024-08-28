@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_background">
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:visibility="invisible"
+                    android:text="benayyah"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/selectLocation"
+                    android:layout_width="@dimen/_65sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:background="@color/my_shimmer_color"
+                    android:padding="@dimen/_4sdp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView">
+
+
+                </View>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_32sdp"
+                    android:text="Top Stores in Egypt"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                <View
+                    android:id="@+id/homeCategoriesRecycler0"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_91sdp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@color/my_shimmer_color"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    tools:listitem="@layout/item_home_categories_recycler" />
+
+                <View
+                    android:id="@+id/homeCategoriesRecycler1"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_91sdp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@color/my_shimmer_color"
+                    app:layout_constraintStart_toEndOf="@+id/homeCategoriesRecycler0"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    tools:listitem="@layout/item_home_categories_recycler" />
+
+                <View
+                    android:id="@+id/homeCategoriesRecycler2"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_91sdp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@color/my_shimmer_color"
+                    app:layout_constraintStart_toEndOf="@+id/homeCategoriesRecycler1"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    tools:listitem="@layout/item_home_categories_recycler" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="@dimen/_34sdp"
+                    android:text="Best Coupons in Egypt"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintTop_toBottomOf="@+id/homeCategoriesRecycler0" />
+
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_imageItem"
+                    android:layout_width="@dimen/_65sdp"
+                    android:layout_height="@dimen/_65sdp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@color/my_shimmer_color"
+                    android:elevation="@dimen/_4sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_imageItem1"
+                    android:layout_width="@dimen/_65sdp"
+                    android:layout_height="@dimen/_65sdp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@color/my_shimmer_color"
+                    android:elevation="@dimen/_4sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toEndOf="@+id/iv_imageItem"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_imageItem2"
+                    android:layout_width="@dimen/_65sdp"
+                    android:layout_height="@dimen/_65sdp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@color/my_shimmer_color"
+                    android:elevation="@dimen/_4sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toEndOf="@+id/iv_imageItem1"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_imageItem3"
+                    android:layout_width="@dimen/_65sdp"
+                    android:layout_height="@dimen/_65sdp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:background="@color/my_shimmer_color"
+                    android:elevation="@dimen/_4sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintStart_toEndOf="@+id/iv_imageItem2"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_47sdp"
+                    android:text="Best Coupons For You"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_imageItem" />
+
+                <View
+                    android:id="@+id/topLikedViewMore"
+                    android:layout_width="104dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:background="@color/my_shimmer_color"
+                    android:elevation="@dimen/_4sdp"
+                    android:padding="@dimen/_4sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+                <View
+                    android:id="@+id/topLikedSlider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="@color/my_shimmer_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:text="best_offers"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintTop_toBottomOf="@+id/topLikedSlider1" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/bestOffersRecycler0"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:background="@color/my_shimmer_color"
+                    android:elevation="@dimen/_1sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5"
+                    tools:ignore="ContentDescription" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/bestOffersRecycler1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:background="@color/my_shimmer_color"
+                    android:elevation="@dimen/_1sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bestOffersRecycler0"
+                    tools:ignore="ContentDescription" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/bestOffersRecycler2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_12sdp"
+                    android:elevation="@dimen/_1sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:scaleType="fitXY"
+                    android:background="@color/my_shimmer_color"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bestOffersRecycler1"
+                    tools:ignore="ContentDescription" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

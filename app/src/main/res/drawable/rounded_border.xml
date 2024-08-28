@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <!-- Set the color of the border -->
+            <solid android:color="#FFFFFF" />
+            <!-- Rounded corners -->
+            <corners android:radius="16dp" />
+            <!-- Border width and color -->
+            <stroke
+                android:width="2dp"
+                android:color="#7D7A7A" />
+        </shape>
+    </item>
+</layer-list>

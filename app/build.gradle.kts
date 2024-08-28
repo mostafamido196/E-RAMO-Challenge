@@ -36,6 +36,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -54,4 +58,28 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
+
+    // Retrofit
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation(libs.logging.interceptor)
+
+    // Coroutines
+    implementation (libs.kotlinx.coroutines.core)
+    implementation (libs.kotlinx.coroutines.android)
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+
+    //Glide
+    implementation(libs.glide)
+    annotationProcessor (libs.compiler)
+
+
+    //circle imageview
+    implementation (libs.circleimageview)
+
+
+    implementation ("com.intuit.ssp:ssp-android:1.1.0")
+    implementation ("com.intuit.sdp:sdp-android:1.1.0")
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
+
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="_marginStart">20dp</dimen>
+    <dimen name="marginBetweenTitleAndRV">6dp</dimen>
+    <dimen name="marginBetweenRVAndImg">18dp</dimen>
+    <dimen name="textSizeTitle">18sp</dimen>
+    <dimen name="marginBetweenImgAndRow">14dp</dimen>
+    <dimen name="seeAllFontSize">12sp</dimen>
+</resources>

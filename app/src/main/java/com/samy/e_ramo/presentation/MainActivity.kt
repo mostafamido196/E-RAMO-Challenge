@@ -1,0 +1,180 @@
+package com.samy.e_ramo.presentation
+
+import android.content.res.Configuration
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
+import com.samy.e_ramo.R
+import com.samy.e_ramo.databinding.ActivityMainBinding
+import com.samy.e_ramo.poo.model.DataModel
+import com.samy.e_ramo.presentation.adapter.BestCouponsEgyptAdapter
+import com.samy.e_ramo.presentation.adapter.BestDealAdapter
+import com.samy.e_ramo.presentation.adapter.FeatureDealAdapter
+import com.samy.e_ramo.presentation.adapter.RecentCategoriesAdapter
+import com.samy.e_ramo.presentation.adapter.TopStoresAdapter
+import com.samy.e_ramo.utils.NetworkState
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    private val viewModel: ProductViewModel by viewModels()
+
+    @Inject
+    lateinit var topStoresAdapter: TopStoresAdapter
+
+    @Inject
+    lateinit var bestCouponsEgyptAdapter: BestCouponsEgyptAdapter
+
+    @Inject
+    lateinit var bestCouponsForYouAdapter: BestCouponsEgyptAdapter
+    @Inject
+    lateinit var bestDealAdapter: BestDealAdapter
+    @Inject
+    lateinit var newYearDealAdapter: BestCouponsEgyptAdapter
+    @Inject
+    lateinit var featureDealAdapter: FeatureDealAdapter
+    @Inject
+    lateinit var recentCategoriesAdapter: RecentCategoriesAdapter
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        try {
+            setup()
+            data()
+            observe()
+        } catch (e: Exception) {
+            Log.d("mos", "e: ${e.message}")
+        }
+    }
+
+    private fun setup() {
+        statuesBar()
+        binding.topStoresRV.adapter = topStoresAdapter
+        binding.bestCouponsInEgyptRV.adapter = bestCouponsEgyptAdapter
+        binding.bestCouponsForYouRV.adapter = bestCouponsForYouAdapter
+        binding.bestDealsRV.adapter = bestDealAdapter
+        binding.newYearOffersRV.adapter = newYearDealAdapter
+        binding.featuredDealsRV.adapter = featureDealAdapter
+        binding.recentCategoriesRV.adapter = recentCategoriesAdapter
+    }
+
+    private fun statuesBar() {
+        val window = window
+        val colorSchema = ContextCompat.getColor(this, R.color.white)
+
+        window.statusBarColor = colorSchema
+        window.navigationBarColor = colorSchema
+
+        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars =
+            !isDarkTheme()
+
+    }
+
+    private fun isDarkTheme(): Boolean {
+        return resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+    }
+
+    private fun data() {
+//        if (Utils.isInternetAvailable())
+            viewModel.fetchData()
+//        else
+//            Toast.makeText(this, "Chick internet connection", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun observe() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.dataStateFlow.collect {
+                Log.d("mos", "viewModel....collect ")
+                when (it) {
+                    is NetworkState.Idle -> {
+                        return@collect
+                    }
+
+                    is NetworkState.Loading -> {
+                        visProgress(true)
+                    }
+
+                    is NetworkState.Error -> {
+                        visProgress(false)
+//                        it.handleErrors(mContext, null)
+                    }
+
+                    is NetworkState.Result<*> -> {
+                        visProgress(false)
+                        handleResult(it.response as DataModel)
+
+                    }
+
+                    else -> {}
+                }
+
+            }
+        }
+    }
+
+    private fun visProgress(s: Boolean) {
+
+        if (s) {
+            binding.progressLayout.startShimmer()
+            binding.progressLayout.visibility = View.VISIBLE
+            binding.mainConstraintLayout.visibility = View.INVISIBLE
+        } else {
+            binding.progressLayout.stopShimmer()
+            binding.progressLayout.visibility = View.GONE
+            binding.mainConstraintLayout.visibility = View.VISIBLE
+        }
+
+    }
+
+    private fun handleResult(dataModel: DataModel) {
+        dataModel.data.forEach {
+            if (it.name == "Top stores")
+                topStoresRV(it.data)
+            else if (it.name=="Best coupons")
+                bestCouponsEgyptRV(it.data)
+            else if(it.name=="Best coupons for you")
+                bestCouponsForYouRV(it.data)
+            else if(it.name=="Best deals")
+                bestDealRV(it.data)
+            else if(it.name=="Featured deals") {
+                newYearDealRV(it.data)
+                featureDealRV(it.data)
+            }
+            else if(it.name=="Recent categories")
+                recentCategoriesRV(it.data)
+        }
+    }
+
+    private fun topStoresRV(data: List<DataModel.DataX>) {
+        topStoresAdapter.submitList(data.asReversed())
+    }
+    private fun bestCouponsEgyptRV(data: List<DataModel.DataX>) {
+        bestCouponsEgyptAdapter.submitList(data.asReversed())
+    }
+    private fun bestCouponsForYouRV(data: List<DataModel.DataX>) {
+        bestCouponsForYouAdapter.submitList(data.asReversed())
+    }
+    private fun bestDealRV(data: List<DataModel.DataX>) {
+        bestDealAdapter.submitList(data.asReversed())
+    }
+    private fun newYearDealRV(data: List<DataModel.DataX>) {
+        newYearDealAdapter.submitList(data.asReversed())
+    }
+    private fun featureDealRV(data: List<DataModel.DataX>) {
+        featureDealAdapter.submitList(data)
+    }
+    private fun recentCategoriesRV(data: List<DataModel.DataX>) {
+        recentCategoriesAdapter.submitList(data.asReversed())
+    }
+
+}
