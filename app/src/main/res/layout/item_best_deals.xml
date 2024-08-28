@@ -48,8 +48,8 @@
 
                 <ImageView
                     android:id="@+id/iv"
-                    android:layout_width="66dp"
-                    android:layout_height="35dp"
+                    android:layout_width="88dp"
+                    android:layout_height="46dp"
                     android:background="@drawable/rounded_border"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop" />

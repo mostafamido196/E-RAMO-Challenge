@@ -1,4 +1,4 @@
-package com.samy.e_ramo.poo.model
+package com.samy.e_ramo.pojo.model
 
 data class DataModel(
     val `data`: List<Data>,

@@ -8,12 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.samy.e_ramo.R
-import com.samy.e_ramo.databinding.ItemBestCouponBinding
-import com.samy.e_ramo.databinding.ItemBestDealsBinding
-import com.samy.e_ramo.databinding.ItemFeatureDealBinding
 import com.samy.e_ramo.databinding.ItemRecentCategoryBinding
-import com.samy.e_ramo.databinding.ItemTopSalaryBinding
-import com.samy.e_ramo.poo.model.DataModel
+import com.samy.e_ramo.pojo.model.DataModel
 import javax.inject.Inject
 
 

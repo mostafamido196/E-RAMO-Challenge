@@ -11,7 +11,7 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.samy.e_ramo.R
 import com.samy.e_ramo.databinding.ActivityMainBinding
-import com.samy.e_ramo.poo.model.DataModel
+import com.samy.e_ramo.pojo.model.DataModel
 import com.samy.e_ramo.presentation.adapter.BestCouponsEgyptAdapter
 import com.samy.e_ramo.presentation.adapter.BestDealAdapter
 import com.samy.e_ramo.presentation.adapter.FeatureDealAdapter
@@ -34,15 +34,24 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var bestCouponsForYouAdapter: BestCouponsEgyptAdapter
+
     @Inject
     lateinit var bestDealAdapter: BestDealAdapter
+
     @Inject
     lateinit var newYearDealAdapter: BestCouponsEgyptAdapter
+
     @Inject
     lateinit var featureDealAdapter: FeatureDealAdapter
+
     @Inject
     lateinit var recentCategoriesAdapter: RecentCategoriesAdapter
 
+    @Inject
+    lateinit var motherDayAdapter: BestCouponsEgyptAdapter
+
+    @Inject
+    lateinit var todayDealAdapter: BestDealAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +75,8 @@ class MainActivity : AppCompatActivity() {
         binding.newYearOffersRV.adapter = newYearDealAdapter
         binding.featuredDealsRV.adapter = featureDealAdapter
         binding.recentCategoriesRV.adapter = recentCategoriesAdapter
+        binding.motherOffersRV.adapter = motherDayAdapter
+        binding.ToDayDealsRV.adapter = todayDealAdapter
     }
 
     private fun statuesBar() {
@@ -85,16 +96,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun data() {
-//        if (Utils.isInternetAvailable())
-            viewModel.fetchData()
-//        else
-//            Toast.makeText(this, "Chick internet connection", Toast.LENGTH_SHORT).show()
+        viewModel.fetchData()
     }
 
     private fun observe() {
         lifecycleScope.launchWhenStarted {
             viewModel.dataStateFlow.collect {
-                Log.d("mos", "viewModel....collect ")
+                Log.d("mos", "it: ${it} ")
                 when (it) {
                     is NetworkState.Idle -> {
                         return@collect
@@ -106,7 +114,6 @@ class MainActivity : AppCompatActivity() {
 
                     is NetworkState.Error -> {
                         visProgress(false)
-//                        it.handleErrors(mContext, null)
                     }
 
                     is NetworkState.Result<*> -> {
@@ -115,7 +122,6 @@ class MainActivity : AppCompatActivity() {
 
                     }
 
-                    else -> {}
                 }
 
             }
@@ -138,43 +144,61 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleResult(dataModel: DataModel) {
         dataModel.data.forEach {
+            Log.d("mos", "motherDayRV it.name:${it.name}")
             if (it.name == "Top stores")
                 topStoresRV(it.data)
-            else if (it.name=="Best coupons")
+            else if (it.name == "Best coupons") {
                 bestCouponsEgyptRV(it.data)
-            else if(it.name=="Best coupons for you")
+                todayDealsRV(it.data)
+            } else if (it.name == "Best coupons for you")
                 bestCouponsForYouRV(it.data)
-            else if(it.name=="Best deals")
+            else if (it.name == "Best deals")
                 bestDealRV(it.data)
-            else if(it.name=="Featured deals") {
+            else if (it.name == "Featured deals") {
                 newYearDealRV(it.data)
                 featureDealRV(it.data)
-            }
-            else if(it.name=="Recent categories")
+                motherDayRV(it.data)
+            } else if (it.name == "Recent categories")
                 recentCategoriesRV(it.data)
+
+
         }
     }
 
     private fun topStoresRV(data: List<DataModel.DataX>) {
         topStoresAdapter.submitList(data.asReversed())
     }
+
     private fun bestCouponsEgyptRV(data: List<DataModel.DataX>) {
         bestCouponsEgyptAdapter.submitList(data.asReversed())
     }
+
     private fun bestCouponsForYouRV(data: List<DataModel.DataX>) {
         bestCouponsForYouAdapter.submitList(data.asReversed())
     }
+
     private fun bestDealRV(data: List<DataModel.DataX>) {
         bestDealAdapter.submitList(data.asReversed())
     }
+
     private fun newYearDealRV(data: List<DataModel.DataX>) {
         newYearDealAdapter.submitList(data.asReversed())
     }
+
     private fun featureDealRV(data: List<DataModel.DataX>) {
         featureDealAdapter.submitList(data)
     }
+
     private fun recentCategoriesRV(data: List<DataModel.DataX>) {
         recentCategoriesAdapter.submitList(data.asReversed())
+    }
+
+    private fun motherDayRV(data: List<DataModel.DataX>) {
+        motherDayAdapter.submitList(data)
+    }
+
+    private fun todayDealsRV(data: List<DataModel.DataX>) {
+        todayDealAdapter.submitList(data)
     }
 
 }
