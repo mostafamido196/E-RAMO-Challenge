@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -18,6 +19,7 @@ import com.samy.e_ramo.presentation.adapter.FeatureDealAdapter
 import com.samy.e_ramo.presentation.adapter.RecentCategoriesAdapter
 import com.samy.e_ramo.presentation.adapter.TopStoresAdapter
 import com.samy.e_ramo.utils.NetworkState
+import com.samy.e_ramo.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -113,7 +115,16 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     is NetworkState.Error -> {
+                        Log.d("mos", "error: ${it.msg}")
                         visProgress(false)
+                        binding.mainConstraintLayout.visibility = View.INVISIBLE
+                        Utils.showNoInternetDialog(this@MainActivity,
+                            onPositive = {
+                                val intent = intent
+                                finish()
+                                startActivity(intent)
+                            }
+                        )
                     }
 
                     is NetworkState.Result<*> -> {

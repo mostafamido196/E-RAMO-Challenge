@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.samy.e_ramo.data.datasorce.ApiService
 import com.samy.e_ramo.utils.BaseViewModel
 import com.samy.e_ramo.utils.NetworkState
+import com.samy.e_ramo.utils.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,23 +26,27 @@ class ProductViewModel @Inject constructor(private val repository: ProductReposi
         if (dataLoaded) return
 
         _dataStateFlow.value = NetworkState.Loading
+        if (Utils.isInternetAvailable()) {
 
-        viewModelScope.launch(Dispatchers.IO) {
-            runApi(
-                _dataStateFlow,
-                repository.getData("mobile")
-            )
-            dataLoaded = true
-        }
+            viewModelScope.launch(Dispatchers.IO) {
+                runApi(
+                    _dataStateFlow,
+                    repository.getData("mobile")
+                )
+                dataLoaded = true
+            }
+
+
+        } else
+            _dataStateFlow.value = NetworkState.Error("Check Internet Connection")
 
     }
+    }
 
-}
+    class ProductRepository @Inject constructor(private val services: ApiService) {
+        suspend fun getData(
+            platform: String,
+        ) =
+            services.getData(platform)
 
-class ProductRepository @Inject constructor(private val services: ApiService) {
-    suspend fun getData(
-        platform: String,
-    ) =
-        services.getData(platform)
-
-}
+    }
