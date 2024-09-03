@@ -2,6 +2,7 @@ package com.samy.e_ramo.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,9 @@ import javax.inject.Inject
 
 class BestDealAdapter @Inject constructor() :
     ListAdapter<DataModel.DataX, BestDealAdapter.ViewHolder>(DiffCallback()) {
+    private val list =
+        mutableListOf(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
+
     class DiffCallback : DiffUtil.ItemCallback<DataModel.DataX>() {
         override fun areItemsTheSame(
             oldItem: DataModel.DataX, newItem: DataModel.DataX,
@@ -43,6 +47,26 @@ class BestDealAdapter @Inject constructor() :
 
         fun bind(data: DataModel.DataX) {
             binding.upToUoOFF.text = "UP TO ${data.discount_range.take(2)} %+10 %"
+            binding.heart.setOnClickListener {
+                if (list[position] != true) {
+                    list[position] = true
+                    binding.heart.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            binding.root.context,
+                            R.drawable.heart
+                        )
+                    )
+                } else {
+                    list[position] = false
+                    binding.heart.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            binding.root.context,
+                            R.drawable.love
+                        )
+                    )
+                }
+            }
+
 
             Glide.with(binding.root.context)
                 .load(data.brand_logo)

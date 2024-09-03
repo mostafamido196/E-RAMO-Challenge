@@ -8,21 +8,31 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:padding="1dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/rounded_corners_item2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="16dp"
         android:elevation="8dp"
         app:cardElevation="8dp">
-        <ImageView
-            android:id="@+id/iv"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_launcher_background"
-            android:scaleType="centerCrop"
-            android:layout_gravity="center"
-            />
+            >
+
+            <ImageView
+                android:id="@+id/iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher_background"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
     <TextView

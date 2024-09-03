@@ -13,9 +13,11 @@ import androidx.lifecycle.lifecycleScope
 import com.samy.e_ramo.R
 import com.samy.e_ramo.databinding.ActivityMainBinding
 import com.samy.e_ramo.pojo.model.DataModel
+import com.samy.e_ramo.pojo.model.StringDemo
 import com.samy.e_ramo.presentation.adapter.BestCouponsEgyptAdapter
 import com.samy.e_ramo.presentation.adapter.BestDealAdapter
 import com.samy.e_ramo.presentation.adapter.FeatureDealAdapter
+import com.samy.e_ramo.presentation.adapter.MarkitAdapter
 import com.samy.e_ramo.presentation.adapter.RecentCategoriesAdapter
 import com.samy.e_ramo.presentation.adapter.TopStoresAdapter
 import com.samy.e_ramo.utils.NetworkState
@@ -54,6 +56,12 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var todayDealAdapter: BestDealAdapter
+    @Inject
+    lateinit var markitAdapter: MarkitAdapter
+    @Inject
+    lateinit var markitAdapter2: MarkitAdapter
+    @Inject
+    lateinit var markitAdapter3: MarkitAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +87,9 @@ class MainActivity : AppCompatActivity() {
         binding.recentCategoriesRV.adapter = recentCategoriesAdapter
         binding.motherOffersRV.adapter = motherDayAdapter
         binding.ToDayDealsRV.adapter = todayDealAdapter
+        binding.markitRV.adapter = markitAdapter
+        binding.closesShop.adapter = markitAdapter2
+        binding.closesShop2.adapter = markitAdapter3
     }
 
     private fun statuesBar() {
@@ -169,11 +180,33 @@ class MainActivity : AppCompatActivity() {
                 newYearDealRV(it.data)
                 featureDealRV(it.data)
                 motherDayRV(it.data)
-            } else if (it.name == "Recent categories")
+            } else if (it.name == "Recent categories") {
                 recentCategoriesRV(it.data)
-
+            }
+            makeImgRV()
 
         }
+    }
+
+    private fun makeImgRV() {
+        markitAdapter.submitList(listOf(
+            StringDemo(0,"90% OFF"),
+            StringDemo(1,"90% OFF"),
+            StringDemo(2,"90% OFF"),
+            StringDemo(3,"90% OFF"),
+        ))
+        markitAdapter2.submitList(listOf(
+            StringDemo(0,"70% OFF"),
+            StringDemo(1,"70% OFF"),
+            StringDemo(2,"70% OFF"),
+            StringDemo(3,"70% OFF"),
+        ))
+        markitAdapter3.submitList(listOf(
+            StringDemo(0,"70% OFF"),
+            StringDemo(1,"70% OFF"),
+            StringDemo(2,"70% OFF"),
+            StringDemo(3,"70% OFF"),
+        ))
     }
 
     private fun topStoresRV(data: List<DataModel.DataX>) {
