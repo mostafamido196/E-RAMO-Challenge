@@ -1,0 +1,10 @@
+<!-- res/drawable/ic_visibility.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@android:color/black"
+        android:pathData="M12,6C8.69,6 6,8.69 6,12s2.69,6 6,6 6,-2.69 6,-6 -2.69,-6 -6,-6zM12,16c-2.21,0 -4,-1.79 -4,-4s1.79,-4 4,-4 4,1.79 4,4 -1.79,4 -4,4zM12,3c6.84,0 12,5.16 12,12s-5.16,12 -12,12 -12,-5.16 -12,-12 5.16,-12 12,-12z"/>
+</vector>

@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.samy.e_ramo" />
+                  <option name="mobileSdkAppId" value="1:147432484556:android:852e0b949ad3f906d25c69" />
+                  <option name="projectId" value="rickapp-d9354" />
+                  <option name="projectNumber" value="147432484556" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
