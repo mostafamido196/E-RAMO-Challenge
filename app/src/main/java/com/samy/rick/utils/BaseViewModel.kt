@@ -16,11 +16,11 @@ open class BaseViewModel @Inject constructor() :
     ViewModel() {
 
     fun <T> runApi(
-        _apiStateFlow: MutableStateFlow<NetworkState>,
+        _apiStateFlow: MutableStateFlow<DataState<T>>,
         block: Response<T>
     ) {
 
-        _apiStateFlow.value = NetworkState.Loading
+        _apiStateFlow.value = DataState.Loading
         try {
             if (Utils.isInternetAvailable())
                 CoroutineScope(Dispatchers.IO).launch {
@@ -28,20 +28,20 @@ open class BaseViewModel @Inject constructor() :
                     kotlin.runCatching {
                         block
                     }.onFailure {e->
-                        _apiStateFlow.value = NetworkState.Error(e.message)
+                        _apiStateFlow.value = DataState.Error(e.message)
                     }.onSuccess {
                         Log.e(TAG, "runApi: onSuccess")
                         if (it.body() != null)
-                            _apiStateFlow.value = NetworkState.Result(it.body())
+                            _apiStateFlow.value = DataState.Result(it.body()!!)!!
                         else {
                             Log.e(TAG, "runApi: ${it.errorBody()}")
-                            _apiStateFlow.value = NetworkState.Error("${it.errorBody()}")
+                            _apiStateFlow.value = DataState.Error("${it.errorBody()}")
                         }
                     }
 
                 }
             else
-                _apiStateFlow.value = NetworkState.Error("Chick Internet Connection")
+                _apiStateFlow.value = DataState.Error("Chick Internet Connection")
         } catch (e: Exception) {
             Log.e(TAG, "runApi: ${e.message}")
         }

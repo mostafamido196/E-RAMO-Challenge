@@ -1,6 +1,9 @@
 package com.samy.rick.di
 
-import com.samy.rick.data.datasorce.ApiService
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.samy.rick.data.datasorce.AuthDataSource
+import com.samy.rick.data.repo.AuthRepository
 import com.samy.rick.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -47,10 +50,24 @@ object AppModule {
         addConverterFactory(GsonConverterFactory.create())
     }.build()
 
+
     @Provides
-    @Singleton
-    fun provideAuthServices(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
+    fun provideFirebaseAuth(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
     }
 
+    @Provides
+    fun provideFirebaseFirestore(): FirebaseFirestore {
+        return FirebaseFirestore.getInstance()
+    }
+
+    @Provides
+    fun provideAuthDataSource(firebaseAuth: FirebaseAuth, firestore: FirebaseFirestore): AuthDataSource {
+        return AuthDataSource(firebaseAuth, firestore)
+    }
+
+    @Provides
+    fun provideAuthRepository(authDataSource: AuthDataSource): AuthRepository {
+        return AuthRepository(authDataSource)
+    }
 }

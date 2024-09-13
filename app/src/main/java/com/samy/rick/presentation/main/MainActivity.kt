@@ -14,8 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.samy.e_ramo.R
 import com.samy.e_ramo.databinding.ActivityMainBinding
-import com.samy.rick.pojo.model.DataModel
-import com.samy.rick.utils.NetworkState
+import com.samy.rick.utils.DataState
 import com.samy.rick.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -55,23 +54,20 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun data() {
-        viewModel.fetchData()
+//        viewModel.fetchData()
     }
 
     private fun observe() {
-        lifecycleScope.launchWhenStarted {
+        /*lifecycleScope.launchWhenStarted {
             viewModel.dataStateFlow.collect {
                 Log.d("mos", "it: ${it} ")
                 when (it) {
-                    is NetworkState.Idle -> {
-                        return@collect
-                    }
 
-                    is NetworkState.Loading -> {
+                    is DataState.Loading -> {
                         visProgress(true)
                     }
 
-                    is NetworkState.Error -> {
+                    is DataState.Error -> {
                         Log.d("mos", "error: ${it.msg}")
                         visProgress(false)
                         binding.mainConstraintLayout.visibility = View.INVISIBLE
@@ -84,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
 
-                    is NetworkState.Result<*> -> {
+                    is DataState.Result<*> -> {
                         visProgress(false)
                         handleResult(it.response as DataModel)
 
@@ -93,11 +89,10 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-        }
+        }*/
     }
 
     private fun visProgress(s: Boolean) {
-
         if (s) {
             binding.progressLayout.startShimmer()
             binding.progressLayout.visibility = View.VISIBLE
@@ -109,10 +104,12 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+/*
 
     private fun handleResult(dataModel: DataModel) {
 //        topStoresAdapter.submitList(data)
     }
+*/
 
 
 

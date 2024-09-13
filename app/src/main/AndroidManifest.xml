@@ -16,17 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.E_RAMO"
         tools:targetApi="31">
-        <activity
-            android:name="com.samy.rick.presentation.main.MainActivity"
-            android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
         <activity
-            android:name="com.samy.rick.presentation.authentication.LoginActivity"
+            android:name="com.samy.rick.presentation.authentication.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,6 +26,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.samy.rick.presentation.authentication.register.RegisterActivity"
+            android:exported="true">
+
+        </activity>
+
+        <activity
+            android:name="com.samy.rick.presentation.main.MainActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

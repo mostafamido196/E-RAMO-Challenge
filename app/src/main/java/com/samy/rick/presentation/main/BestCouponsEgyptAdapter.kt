@@ -10,22 +10,71 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.samy.e_ramo.R
 import com.samy.e_ramo.databinding.ItemBestCouponBinding
-import com.samy.rick.pojo.model.DataModel
 import javax.inject.Inject
 
 
 class BestCouponsEgyptAdapter @Inject constructor() :
-    ListAdapter<DataModel.DataX, BestCouponsEgyptAdapter.ViewHolder>(DiffCallback()) {
+    ListAdapter<String, BestCouponsEgyptAdapter.ViewHolder>(DiffCallback()) {
     private val list =
-        mutableListOf(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
+        mutableListOf(
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        )
 
-    class DiffCallback : DiffUtil.ItemCallback<DataModel.DataX>() {
+    class DiffCallback : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(
-            oldItem: DataModel.DataX, newItem: DataModel.DataX,
-        ): Boolean = newItem.id == oldItem.id
+            oldItem: String, newItem: String,
+        ): Boolean = newItem == oldItem
 
         override fun areContentsTheSame(
-            oldItem: DataModel.DataX, newItem: DataModel.DataX,
+            oldItem: String, newItem: String,
         ): Boolean = newItem == oldItem
     }
 
@@ -45,9 +94,9 @@ class BestCouponsEgyptAdapter @Inject constructor() :
     inner class ViewHolder(val binding: ItemBestCouponBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: DataModel.DataX) {
+        fun bind(data: String) {
 
-            binding.upToUoOFF.text = "UP TO ${data.discount_range} OFF"
+            binding.upToUoOFF.text = "UP TO OFF"
             binding.heart.setOnClickListener {
                 if (list[position] != true) {
                     list[position] = true
@@ -69,11 +118,6 @@ class BestCouponsEgyptAdapter @Inject constructor() :
             }
 
 
-            Glide.with(binding.root.context)
-                .load(data.brand_logo)
-                .error(R.drawable.baseline_image_24)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(binding.iv)
 
             binding.root.setOnClickListener {
                 onItemClickListener?.let { click ->
@@ -87,9 +131,9 @@ class BestCouponsEgyptAdapter @Inject constructor() :
     }
 
 
-    private var onItemClickListener: ((DataModel.DataX) -> Unit)? = null
+    private var onItemClickListener: ((String) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (DataModel.DataX) -> Unit) {
+    fun setOnItemClickListener(listener: (String) -> Unit) {
         onItemClickListener = listener
     }
 
