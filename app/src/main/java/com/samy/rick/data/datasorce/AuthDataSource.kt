@@ -34,7 +34,7 @@ class AuthDataSource(
     }
 
     suspend fun login(email: String, password: String): FirebaseUser? {
-        Log.d("mos samy", "on AuthDataSource.register()")
+        Log.d("mos samy", "on AuthDataSource.login()")
         Log.d("mos samy", "email: $email ,pass: $password")
         val result = firebaseAuth.signInWithEmailAndPassword(email, password).addOnFailureListener {
             Log.d("mos samy", "on login falure : ${it.message}")

@@ -1,117 +1,137 @@
 package com.samy.rick.presentation.main
 
-import android.content.res.Configuration
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.View
+import android.widget.Toolbar
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadStateAdapter
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.samy.e_ramo.R
 import com.samy.e_ramo.databinding.ActivityMainBinding
+import com.samy.rick.presentation.authentication.login.LoginActivity
 import com.samy.rick.utils.DataState
-import com.samy.rick.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: ProductViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
 
     @Inject
-    lateinit var bestCouponsEgyptAdapter: BestCouponsEgyptAdapter
+    lateinit var adapter: CharacterAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        enableEdgeToEdge()
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        toolbarSetup()
+        setupRecyclerView()
+        observeViewModel()
+        swipeRefreshOnClick()
+
+    }
+
+    private fun swipeRefreshOnClick() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            // Refresh data when -to-refresh is triggered
+            viewModel.fetchCharacters()
         }
-        try {
-            setup()
-            data()
-            observe()
-        } catch (e: Exception) {
-            Log.d("mos", "e: ${e.message}")
+    }
+
+
+    private fun toolbarSetup() {
+        window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimary) // Replace `R.color.colorPrimary` with your toolbar color
+        val toolbar: androidx.appcompat.widget.Toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+
+
+        toolbar.inflateMenu(R.menu.menu)
+
+        // Set up the action for the logout button
+        toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_logout -> {
+                    // Handle logout action here
+                    performLogout()
+                    true
+                }
+
+                else -> false
+            }
         }
     }
 
-    private fun setup() {
-//        binding.bestCouponsInEgyptRV.adapter = bestCouponsEgyptAdapter
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
     }
 
-
-    private fun data() {
-//        viewModel.fetchData()
+    fun performLogout() {
+        startActivity(
+            Intent(this@MainActivity,LoginActivity::class.java)
+        )
+        finish()
     }
 
-    private fun observe() {
-        /*lifecycleScope.launchWhenStarted {
-            viewModel.dataStateFlow.collect {
-                Log.d("mos", "it: ${it} ")
-                when (it) {
+    private fun setupRecyclerView() {
+        binding.recyclerView.layoutManager = GridLayoutManager(this, 2)  // 2 items per row
+        binding.recyclerView.adapter = adapter
+
+    }
+
+    private fun observeViewModel() {
+        lifecycleScope.launch {
+            viewModel.uiState.collect { dataState ->
+                Log.d("mos samy", "state: $dataState")
+                when (dataState) {
+                    is DataState.Idle -> {
+                        visProgress(false)
+                    }
 
                     is DataState.Loading -> {
                         visProgress(true)
                     }
 
+                    is DataState.Result -> {
+                        visProgress(false)
+                        Log.d("mos samy", "state: ${dataState.data}")
+                        adapter.submitList(dataState.data.results)
+                    }
+
                     is DataState.Error -> {
-                        Log.d("mos", "error: ${it.msg}")
                         visProgress(false)
-                        binding.mainConstraintLayout.visibility = View.INVISIBLE
-                        Utils.showNoInternetDialog(this@MainActivity,
-                            onPositive = {
-                                val intent = intent
-                                finish()
-                                startActivity(intent)
-                            }
-                        )
                     }
-
-                    is DataState.Result<*> -> {
-                        visProgress(false)
-                        handleResult(it.response as DataModel)
-
-                    }
-
                 }
-
             }
-        }*/
+        }
     }
 
     private fun visProgress(s: Boolean) {
         if (s) {
             binding.progressLayout.startShimmer()
             binding.progressLayout.visibility = View.VISIBLE
-            binding.mainConstraintLayout.visibility = View.INVISIBLE
+            binding.recyclerView.visibility = View.INVISIBLE
         } else {
             binding.progressLayout.stopShimmer()
             binding.progressLayout.visibility = View.GONE
-            binding.mainConstraintLayout.visibility = View.VISIBLE
+            binding.swipeRefreshLayout.isRefreshing = false
+            binding.recyclerView.visibility = View.VISIBLE
         }
 
     }
-/*
-
-    private fun handleResult(dataModel: DataModel) {
-//        topStoresAdapter.submitList(data)
-    }
-*/
-
-
-
 
 }

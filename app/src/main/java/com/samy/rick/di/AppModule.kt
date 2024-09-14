@@ -3,7 +3,10 @@ package com.samy.rick.di
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.samy.rick.data.datasorce.AuthDataSource
-import com.samy.rick.data.repo.AuthRepository
+import com.samy.rick.data.datasorce.CharacterServices
+import com.samy.rick.data.repository.AuthRepository
+import com.samy.rick.data.repository.CharacterRepository
+import com.samy.rick.domain.usecase.GetCharactersUsecase
 import com.samy.rick.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -26,7 +29,6 @@ object AppModule {
     @Provides
     @Singleton
     fun providesHttpLoggingInterceptor(): HttpLoggingInterceptor {
-
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         return httpLoggingInterceptor
@@ -50,7 +52,23 @@ object AppModule {
         addConverterFactory(GsonConverterFactory.create())
     }.build()
 
+    @Provides
+    @Singleton
+    fun provideCharacterServices(retrofit: Retrofit): CharacterServices {
+        return retrofit.create(CharacterServices::class.java)
+    }
 
+    @Provides
+    @Singleton
+    fun provideCharacterRepository(services: CharacterServices): CharacterRepository {
+        return CharacterRepository(services)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetCharactersUseCase(repository: CharacterRepository): GetCharactersUsecase {
+        return GetCharactersUsecase(repository)
+    }
     @Provides
     fun provideFirebaseAuth(): FirebaseAuth {
         return FirebaseAuth.getInstance()

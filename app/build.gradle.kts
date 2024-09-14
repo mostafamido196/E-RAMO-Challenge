@@ -81,9 +81,18 @@ dependencies {
     //circle imageview
     implementation (libs.circleimageview)
 
+    // paging
+    implementation ("androidx.paging:paging-runtime:3.3.2")
 
+    // ssp and sdp
     implementation ("com.intuit.ssp:ssp-android:1.1.0")
     implementation ("com.intuit.sdp:sdp-android:1.1.0")
+
+    // shimmer
     implementation ("com.facebook.shimmer:shimmer:0.5.0")
+
+    //swiperefreshlayout
+    implementation( "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
 
 }

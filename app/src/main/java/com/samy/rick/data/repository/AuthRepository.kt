@@ -1,4 +1,4 @@
-package com.samy.rick.data.repo
+package com.samy.rick.data.repository
 
 import com.google.firebase.auth.FirebaseUser
 import com.samy.rick.data.datasorce.AuthDataSource

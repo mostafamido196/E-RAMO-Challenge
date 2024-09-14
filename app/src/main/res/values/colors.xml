@@ -34,5 +34,6 @@
     <color name="successColor">#4CAF50</color>
     <color name="warningColor">#FF9800</color>
     <color name="gray">#D3D3D3</color>
+    <color name="colorPrimary">#F5F5F5</color>
 
 </resources>
